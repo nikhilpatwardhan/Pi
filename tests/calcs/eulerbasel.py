@@ -14,8 +14,8 @@ class EulerBaselTest(unittest.TestCase):
     def test_accuracy(self):
         start = time.clock()
         ans = EulerBasel().compute()
-        self.assertTrue(abs(ans - np.pi) < 0.00001)
+        self.assertTrue(abs(ans - np.pi) < 1e-6)
         self.assertTrue((time.clock() - start) < 5.0)
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(exit=False)
