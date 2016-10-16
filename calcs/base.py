@@ -7,4 +7,7 @@ Created on Sun Oct 16 15:26:48 2016
 
 class BaseCalculator(object):
     def compute(self):
+        '''
+        TODO docstring, return type
+        '''
         raise NotImplementedError()

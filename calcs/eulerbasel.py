@@ -2,6 +2,8 @@
 """
 Created on Sun Oct 16 15:35:23 2016
 
+https://en.wikipedia.org/wiki/Basel_problem
+
 @author: Nikhil
 """
 import time
