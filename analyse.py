@@ -12,14 +12,11 @@ from calcs.util import getCalcs
 
 class CalcAnalyser(object):
     
-    def __init__(self):
-        self.calculators = getCalcs()
-    
     def _measureDefaultTimings(self):
         timings = []
         names = []
         
-        for name, calculator in self.calculators:
+        for name, calculator in getCalcs():
             obj = calculator()
             start = time.clock()
             obj.compute()
@@ -37,6 +34,7 @@ class CalcAnalyser(object):
         ax.bar(index, y, bar_width, alpha=0.4)
         ax.set_xticks(index + bar_width/2)
         ax.set_xticklabels(x)
+        ax.set_ylim([0, max(y) + max(0.1, max(y)/10)])
         
         for rect, label in zip(ax.patches, y):
             height = rect.get_height()
@@ -45,7 +43,7 @@ class CalcAnalyser(object):
 
         plt.xlabel('Algorithms')
         plt.ylabel('Timings (seconds)')
-        plt.title('Default timings for Pi computation')
+        plt.title('Timings for Pi computation upto 7 decimal places')
         plt.show()
 
 def main():
