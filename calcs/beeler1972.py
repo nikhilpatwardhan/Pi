@@ -15,14 +15,15 @@ import numpy as np
 from base import BaseCalculator
 
 # TODO Compute and show arbitrary precision
+# TODO Comment that default N is for a specific accuracy
 
 class Beeler1972(BaseCalculator):
-    def compute(self, N=32):
+    def compute(self, N=39):
         def nums():
             for i in xrange(N-1, 0, -1):
                 yield i
         
-        ans = np.float16(N/(2*N+1.0) + 1.0)
+        ans = N/(2*N+1.0) + 1.0
         g = nums()
         
         for j in xrange(N-1):
