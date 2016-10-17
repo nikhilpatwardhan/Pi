@@ -18,7 +18,14 @@ from base import BaseCalculator
 # TODO Comment that default N is for a specific accuracy
 
 class Beeler1972(BaseCalculator):
-    def compute(self, N=39):
+    
+    def __init__(self):
+        self.maxN = 49 # Limit of floating point accuracy
+        self.defaultN = 24
+    
+    def compute(self, N=None):
+        N = N or self.defaultN
+        
         def nums():
             for i in xrange(N-1, 0, -1):
                 yield i
