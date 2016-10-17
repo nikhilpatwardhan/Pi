@@ -5,7 +5,6 @@ Pi and analyse them for time taken, accuracy etc.
 
 TODO:
 Compute and print arbitrary precision
-Discover various implementations dynamically
 Compute time taken and accuracy of calcs for increasing N
 Plot the above
 

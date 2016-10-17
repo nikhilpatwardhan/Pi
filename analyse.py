@@ -5,6 +5,7 @@ Created on Sun Oct 16 20:54:07 2016
 @author: Nikhil
 """
 import time
+import numpy as np
 import matplotlib.pyplot as plt
 
 from calcs.util import getCalcs
@@ -29,9 +30,19 @@ class CalcAnalyser(object):
     
     def showDefaultTimings(self):
         x, y = self._measureDefaultTimings()
-        index = range(len(y))
-        plt.bar(index, y, 0.5, alpha=0.4)
-        plt.xticks([i + 0.25 for i in index], x, ha='center')
+        index = np.arange(len(y))
+        
+        fig, ax = plt.subplots()
+        bar_width = 0.3
+        ax.bar(index, y, bar_width, alpha=0.4)
+        ax.set_xticks(index + bar_width/2)
+        ax.set_xticklabels(x)
+        
+        for rect, label in zip(ax.patches, y):
+            height = rect.get_height()
+            ax.text(rect.get_x() + rect.get_width()/2, height + .01, \
+                    '%.6f' % label, ha='center', va='bottom', color='blue')
+
         plt.xlabel('Algorithms')
         plt.ylabel('Timings (seconds)')
         plt.title('Default timings for Pi computation')
