@@ -15,7 +15,7 @@ class BaseCalculator(object):
     
     def compute(self, N=None):
         '''
-        Returns a float value of pi, defaults to precision of 7 decimal places
+        Returns a Decimal value of pi, defaults to precision of 7 decimal places
         :param N: Number of iterations
         :type N: int
         '''
