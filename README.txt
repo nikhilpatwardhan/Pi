@@ -25,6 +25,8 @@ Plot the above
 References:
 ===============================================================================
 https://en.wikipedia.org/wiki/Basel_problem
+http://web.mit.edu/uma/www/notes/pi_or_not.pdf
+http://www.maa.org/sites/default/files/pdf/upload_library/22/Chauvenet/BorweinBorweinBailey.pdf
 http://mathworld.wolfram.com/PiFormulas.html
 http://oeis.org/A054387
 

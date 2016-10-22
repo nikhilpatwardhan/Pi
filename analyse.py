@@ -12,7 +12,7 @@ from calcs.util import getCalcs
 
 class CalcAnalyser(object):
     
-    def _measureDefaultTimings(self):
+    def measureTimings(self):
         timings = []
         names = []
         
@@ -25,8 +25,7 @@ class CalcAnalyser(object):
         
         return names, timings
     
-    def showDefaultTimings(self):
-        x, y = self._measureDefaultTimings()
+    def showTimings(self, x, y):
         index = np.arange(len(y))
         
         fig, ax = plt.subplots()
@@ -45,10 +44,13 @@ class CalcAnalyser(object):
         plt.ylabel('Timings (seconds)')
         plt.title('Timings for Pi computation upto 7 decimal places')
         plt.show()
+    
+    def run(self):
+        x, y = self.measureTimings()
+        self.showTimings(x, y)
 
 def main():
-    a = CalcAnalyser()
-    a.showDefaultTimings()
+    CalcAnalyser().run()
 
 if __name__ == '__main__':
     main()

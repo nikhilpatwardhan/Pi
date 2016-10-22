@@ -2,8 +2,6 @@
 """
 Created on Sun Oct 16 17:26:43 2016
 
-http://web.mit.edu/uma/www/notes/pi_or_not.pdf
-
 This is a simple and very fast implementation of Pi
 pi/2 = 1 + 1/3 (1 + 2/5(1 + 3/7(1 + 4/9(1 + ...))))
 
@@ -12,10 +10,6 @@ iterations due to floating point precision limitations
 
 @author: Nikhil
 """
-
-import time
-import numpy as np
-
 from base import BaseCalculator
 
 # TODO Compute and show arbitrary precision
@@ -43,9 +37,8 @@ class Beeler1972(BaseCalculator):
         return 2*(ans+1)
 
 def main():
-    start = time.clock()
-    print 'Computed:\t%.64f\nReference:\t%.64f' % (Beeler1972().compute(), np.pi)
-    print 'Time:\t %.8f' % (time.clock() - start)
+    from calcs.util import runCalc
+    runCalc(Beeler1972())
 
 if __name__ == '__main__':
     main()

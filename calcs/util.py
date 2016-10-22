@@ -9,6 +9,8 @@ import imp
 import sys
 import inspect
 import pprint
+import math
+import time
 
 def getCalcs():
     f, p, d = imp.find_module('calcs')
@@ -23,6 +25,11 @@ def getCalcs():
             if inspect.isclass(obj) and obj.__module__ != 'calcs.base' \
                 and hasattr(obj, 'compute'):
                 yield calc.split('.')[1], obj
+
+def runCalc(calc):
+    start = time.clock()
+    print 'Computed:\t%.64f\nReference:\t%.64f' % (calc.compute(), math.pi)
+    print 'Time:\t %.8f' % (time.clock() - start)
 
 if __name__ == '__main__':
     pprint.pprint(list(getCalcs()))

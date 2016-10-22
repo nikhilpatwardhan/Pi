@@ -15,9 +15,8 @@ digit accuracy
 
 @author: Nikhil
 """
-import time
-import numpy as np
 import multiprocessing
+import numpy as np
 
 from math import sqrt
 from base import BaseCalculator
@@ -35,7 +34,7 @@ def _compute(t):
 
 class EulerBasel(BaseCalculator):
     
-    def __init__(self, execType='single'):
+    def __init__(self, execType='multiprocess'):
         super(BaseCalculator, self).__init__()
         self.setCompute(execType)
     
@@ -47,13 +46,13 @@ class EulerBasel(BaseCalculator):
         else:
             raise ValueError('Invalid execution type: %s', execType)
     
-    def _compute_single(self, N=3000000):
+    def _compute_single(self, N=20000000):
         ans = 0.
         for x in xrange(1, N+1):
             ans += 1.0/(x*x)        #LESSON x**2 is very slow!
         return sqrt(6*ans)
     
-    def _compute_multiprocess(self, N=3000000):
+    def _compute_multiprocess(self, N=20000000):
         nProcessors = multiprocessing.cpu_count()/2
         partitions = np.linspace(1, N, nProcessors + 1, dtype=np.int)
         starts = [1] + [i+1 for i in partitions[1:]]
@@ -63,9 +62,8 @@ class EulerBasel(BaseCalculator):
         return sqrt(6*sum(pool.map(_compute, zip(starts, partitions[1:]))))
 
 def main():
-    start = time.clock()
-    print 'Computed:\t%.64f\nReference:\t%.64f' % (EulerBasel().compute(), np.pi)
-    print 'Time:\t %.8f' % (time.clock() - start)
+    from calcs.util import runCalc
+    runCalc(EulerBasel())
 
 if __name__ == '__main__':
     main()
