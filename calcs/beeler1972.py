@@ -4,7 +4,11 @@ Created on Sun Oct 16 17:26:43 2016
 
 http://web.mit.edu/uma/www/notes/pi_or_not.pdf
 
+This is a simple and very fast implementation of Pi
 pi/2 = 1 + 1/3 (1 + 2/5(1 + 3/7(1 + 4/9(1 + ...))))
+
+The algorithm reaches maximum possible accuracy on a 64 bit OS with 49
+iterations due to floating point precision limitations
 
 @author: Nikhil
 """
@@ -20,11 +24,9 @@ from base import BaseCalculator
 class Beeler1972(BaseCalculator):
     
     def __init__(self):
-        self.maxN = 49 # Limit of floating point accuracy
-        self.defaultN = 24
+        super(BaseCalculator, self).__init__()
     
-    def compute(self, N=None):
-        N = N or self.defaultN
+    def compute(self, N=24):
         
         def nums():
             for i in xrange(N-1, 0, -1):

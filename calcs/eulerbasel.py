@@ -4,21 +4,29 @@ Created on Sun Oct 16 15:35:23 2016
 
 https://en.wikipedia.org/wiki/Basel_problem
 
+Computes Pi as follows:
+Pi = sqrt(6 * S)
+Where
+S is the sum of inverse squares of natural numbers from 1 to infinity
+
+The squaring requires a lot of computation and so this is an extremely
+slow calculator and takes many more iterations to even get past 7 decimal
+digit accuracy
+
 @author: Nikhil
 """
 import time
 import numpy as np
 import multiprocessing
-import logging
 
 from math import sqrt
 from base import BaseCalculator
 
-logging.basicConfig()
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-
 def _compute(t):
+    '''
+    This function is here to allow Pickling
+    cPickle.PicklingError: Can't pickle <type 'function'>: attribute lookup __builtin__.function failed
+    '''
     s, n = t[0], t[1]   # Python 2.7
     ans = 0.
     for x in xrange(s, n+1):
@@ -27,47 +35,26 @@ def _compute(t):
 
 class EulerBasel(BaseCalculator):
     
-    def __init__(self, strategy='multiprocess'):
-        self.compute = self._getCompute(strategy)
-        self.maxN = 100000000
-        self.defaultN = 3000000
+    def __init__(self, execType='single'):
+        super(BaseCalculator, self).__init__()
+        self.setCompute(execType)
     
-    def _getCompute(self, strategy):
-        return self._compute_multiprocess if strategy == 'multiprocess' \
-               else self._compute_single
+    def setCompute(self, execType):
+        if execType == 'multiprocess':
+            self.compute = self._compute_multiprocess
+        elif execType == 'single':
+            self.compute = self._compute_single
+        else:
+            raise ValueError('Invalid execution type: %s', execType)
     
-#==============================================================================
-#     def compute(self, s=1, N=None):
-#         N = N or self.defaultN
-#         def sq():
-#             for i in xrange(s, N+1):
-#                 yield i*i
-#         
-#         x = np.fromiter(sq(), np.double)
-#         return np.sqrt(6*np.sum(1/x))
-#==============================================================================
-    
-    def _compute_single(self, s=1, N=None):
-        N = N or self.defaultN
+    def _compute_single(self, N=3000000):
         ans = 0.
-        for x in xrange(s, N+1):
+        for x in xrange(1, N+1):
             ans += 1.0/(x*x)        #LESSON x**2 is very slow!
         return sqrt(6*ans)
     
-#==============================================================================
-#     def compute(self, s=1, N=None):
-#         '''
-#         Implemented just because it can be
-#         Turns out to be slower than compute_math()
-#         '''
-#         N = N or self.defaultN
-#         return math.sqrt(6*reduce(lambda x,y: x+y, [1.0/(a*a) for a in xrange(s,N+1)]))
-#==============================================================================
-    
-    def _compute_multiprocess(self, N=None):
-        N = N or self.defaultN
-        
-        nProcessors = multiprocessing.cpu_count()
+    def _compute_multiprocess(self, N=3000000):
+        nProcessors = multiprocessing.cpu_count()/2
         partitions = np.linspace(1, N, nProcessors + 1, dtype=np.int)
         starts = [1] + [i+1 for i in partitions[1:]]
         
