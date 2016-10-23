@@ -19,14 +19,14 @@ from base import BaseCalculator
 
 logging.basicConfig()
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 class Beeler1972Big(BaseCalculator):
     
     def __init__(self):
         super(Beeler1972Big, self).__init__()
     
-    def compute(self, N=1):
+    def compute(self, N=100):
         N, res = N*14, 0.
         getcontext().prec = N*4
         s = StringIO()
@@ -56,7 +56,7 @@ class Beeler1972Big(BaseCalculator):
         
         finally:
             if s:
-                res = Decimal(s.getvalue()) * 10
+                res = Decimal(s.getvalue()) * Decimal(10)
                 s.close()
         return res
 

@@ -39,4 +39,4 @@ class CalcTests(unittest.TestCase):
     __metaclass__ = CalcTestsMeta
 
 if __name__ == '__main__':
-    unittest.main(exit=False)
+    unittest.main(exit=True)
