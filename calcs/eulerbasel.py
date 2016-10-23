@@ -35,7 +35,7 @@ def _compute(t):
 class EulerBasel(BaseCalculator):
     
     def __init__(self, execType='multiprocess'):
-        super(BaseCalculator, self).__init__()
+        super(EulerBasel, self).__init__()
         self.setCompute(execType)
     
     def setCompute(self, execType):

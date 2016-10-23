@@ -11,7 +11,7 @@ from base import BaseCalculator
 class Ramanujan1(BaseCalculator):
     
     def __init__(self):
-        super(BaseCalculator, self).__init__()
+        super(Ramanujan1, self).__init__()
 
     def compute(self, N=3):
         ans = 0.

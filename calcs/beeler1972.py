@@ -12,13 +12,10 @@ iterations due to floating point precision limitations
 """
 from base import BaseCalculator
 
-# TODO Compute and show arbitrary precision
-# TODO Comment that default N is for a specific accuracy
-
 class Beeler1972(BaseCalculator):
     
     def __init__(self):
-        super(BaseCalculator, self).__init__()
+        super(Beeler1972, self).__init__()
     
     def compute(self, N=24):
         

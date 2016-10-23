@@ -15,7 +15,6 @@ class BigPiTest(unittest.TestCase):
     
     def test_999(self):
         pi = Beeler1972Big().compute(N=250)
-        print str(pi)[2:]
         self.assertTrue(str(pi)[2:] == REF999)
 
 if __name__ == '__main__':
